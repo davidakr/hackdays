@@ -60,3 +60,14 @@ sceneform.asset('sampledata/models/andy.obj',
         'sampledata/models/andy.sfa',
         'src/main/res/raw/andy')
 
+
+
+sceneform.asset('sampledata/models/newYork/13939_New_York_City_Freedom_tower_v1_l3.obj',
+        'default',
+        'sampledata/models/newYork/13939_New_York_City_Freedom_tower_v1_l3.sfa',
+        'src/main/res/raw/building')
+
+sceneform.asset('sampledata/models/statue/LibertStatue.obj',
+        'default',
+        'sampledata/models/statue/LibertStatue.sfa',
+        'src/main/res/raw/libertstatue')
