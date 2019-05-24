@@ -49,4 +49,17 @@
         android:layout_centerHorizontal="true"
         android:text="empire" />
 
+  <View
+      android:id="@+id/view"
+      android:layout_width="300px"
+      android:layout_height="300px"
+      android:layout_centerInParent="true" />
+
+  <TextView
+      android:id="@+id/textView2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="TextView"
+      tools:text="Das Empire State Building ist ein Wolkenkratzer im New Yorker Stadtteil Manhattan. Mit einer strukturellen Höhe von 381 Metern – bis zur Antennenspitze rund 443 Meter – war das von 1930 bis 1931 in ungewöhnlich kurzer Bauzeit errichtete Gebäude nicht nur das höchste Gebäude New Yorks, sondern bis 1972 auch höchstes Gebäude der Welt. Seit der Zerstörung des World Trade Center bei den Anschlägen des 11. September 2001 war es bis zum Richtfest des Nachfolgebaus One World Trade Center 2013 wieder das höchste Bauwerk der Stadt.  Das Empire State Building befindet sich am südlichen Rand des New Yorker Stadtteils Midtown Manhattan an der Fifth Avenue, zwischen der 33. und 34. Straße im südlichen Teil der Insel Manhattan, die von Hudson River und East River umgeben wird. Seine Adresse lautet 350 Fifth Avenue, New York, NY 10118. " />
+
 </RelativeLayout>

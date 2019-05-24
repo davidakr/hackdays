@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.view.View;
@@ -37,6 +38,8 @@ import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.HitTestResult;
+import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
@@ -59,11 +62,11 @@ public class HelloSceneformActivity extends AppCompatActivity {
     private boolean showStatue = true;
     private boolean showEmpire = false;
     private AnchorNode anchorNode;
+    private View toForumSpecial;
     Button Button;
 
     private TransformableNode building;
     private TransformableNode statue;
-
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -128,9 +131,9 @@ public class HelloSceneformActivity extends AppCompatActivity {
                         Anchor anchor = hitResult.createAnchor();
                         anchorNode = new AnchorNode(anchor);
                         anchorNode.setParent(arFragment.getArSceneView().getScene());
-                        anchorIsSet = true;
                         arFragment.getArSceneView().getPlaneRenderer().setEnabled(false);
-
+                        toForumSpecial.setVisibility(View.VISIBLE);
+                        anchorIsSet = true;
                     }
                     if (anchorIsSet) {
                         // Create the transformable andy and add it to the anchor.
@@ -139,11 +142,10 @@ public class HelloSceneformActivity extends AppCompatActivity {
                         anchorIsSet = true;
                     }
                 });
-        addListenerOnEmpireButton();
-        addListenerOnStatueButton();
+        addListenerOnButton();
     }
 
-    public void addListenerOnEmpireButton() {
+    public void addListenerOnButton() {
         Button = (Button) findViewById(R.id.links);
         Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
@@ -151,9 +153,7 @@ public class HelloSceneformActivity extends AppCompatActivity {
                 building.setEnabled(false);
             }
         });
-    }
 
-    public void addListenerOnStatueButton() {
         Button = (Button) findViewById(R.id.mitte);
         Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
@@ -161,14 +161,24 @@ public class HelloSceneformActivity extends AppCompatActivity {
                 building.setEnabled(true);
             }
         });
-  Button toForum = findViewById(R.id.to_forum);
-    toForum.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            startActivity(new Intent(HelloSceneformActivity.this, ForumActivity.class));
-        }
-    });
-  }
+        Button toForum = findViewById(R.id.to_forum);
+        toForum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HelloSceneformActivity.this, ForumActivity.class));
+            }
+        });
+        toForumSpecial = findViewById(R.id.view);
+        toForumSpecial.setVisibility(View.GONE);
+        toForumSpecial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(anchorIsSet) {
+                    startActivity(new Intent(HelloSceneformActivity.this, ForumActivity.class));
+                }
+            }
+        });
+    }
 
     /**
      * Returns false and displays an error message if Sceneform can not run, true if Sceneform can run
@@ -209,7 +219,6 @@ public class HelloSceneformActivity extends AppCompatActivity {
         statue.setLocalScale(new Vector3(0.2f, 0.2f, 0.2f));
         statue.select();
     }
-
     private void setEmpire() {
         Quaternion q1 = anchorNode.getLocalRotation();
         Vector3 rotationVector = new Vector3(-90, 0, 0);
@@ -231,4 +240,27 @@ public class HelloSceneformActivity extends AppCompatActivity {
         building.select();
 
     }
+    public void slideUp(View view){
+        view.setVisibility(View.VISIBLE);
+        TranslateAnimation animate = new TranslateAnimation(
+                0,                 // fromXDelta
+                0,                 // toXDelta
+                view.getHeight(),  // fromYDelta
+                0);                // toYDelta
+        animate.setDuration(500);
+        animate.setFillAfter(true);
+        view.startAnimation(animate);
+    }
+    public void slideDown(View view){
+        TranslateAnimation animate = new TranslateAnimation(
+                0,                 // fromXDelta
+                0,                 // toXDelta
+                0,                 // fromYDelta
+                view.getHeight()); // toYDelta
+        animate.setDuration(500);
+        animate.setFillAfter(true);
+        view.startAnimation(animate);
+    }
 }
+
+
