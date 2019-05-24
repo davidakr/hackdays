@@ -33,21 +33,6 @@ public class FragmentPagerSupport extends FragmentActivity {
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
 
-        // Watch for button clicks.
-        Button button = (Button)findViewById(R.id.goto_first);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPager.setCurrentItem(0);
-            }
-        });
-        button = (Button)findViewById(R.id.goto_last);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPager.setCurrentItem(NUM_ITEMS-1);
-            }
-        });
     }
 
     public static class MyAdapter extends FragmentPagerAdapter {
