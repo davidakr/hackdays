@@ -131,8 +131,8 @@ public class HelloSceneformActivity extends AppCompatActivity {
                     }
                     if (anchorIsSet) {
                         // Create the transformable andy and add it to the anchor.
-                        showStatue();
-                        showEmpire();
+                        setStatue();
+                        setEmpire();
                         anchorIsSet = true;
                     }
                 });
@@ -189,7 +189,7 @@ public class HelloSceneformActivity extends AppCompatActivity {
         return true;
     }
 
-    public void showStatue() {
+    public void setStatue() {
         statue = new TransformableNode(arFragment.getTransformationSystem());
         statue.setParent(anchorNode);
         statue.setRenderable(libertyRenderable);
@@ -200,7 +200,7 @@ public class HelloSceneformActivity extends AppCompatActivity {
         statue.select();
     }
 
-    private void showEmpire() {
+    private void setEmpire() {
         Quaternion q1 = anchorNode.getLocalRotation();
         Vector3 rotationVector = new Vector3(-90, 0, 0);
         Quaternion q2 = Quaternion.eulerAngles(rotationVector);
