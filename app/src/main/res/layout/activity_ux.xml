@@ -24,14 +24,13 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent" />
 
-  <ImageView
-      android:id="@+id/to_forum"
-      android:layout_width="40dp"
-      android:layout_height="40dp"
+  <Button
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
-      android:alpha="0.7"
-      android:src="@mipmap/ic_right" />
+      android:id="@+id/to_forum"
+      android:text="Forum"/>
 
     <Button
         android:id="@+id/links"
@@ -49,5 +48,11 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="empire" />
+
+  <View
+      android:id="@+id/view"
+      android:layout_width="300px"
+      android:layout_height="300px"
+      android:layout_centerInParent="true" />
 
 </RelativeLayout>
