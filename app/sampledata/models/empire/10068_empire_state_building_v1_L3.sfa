@@ -1,0 +1,53 @@
+{
+  materials: [
+    {
+      name: 'orig_orig_orig_Standard_13',
+      parameters: [
+        {
+          baseColor: '10068_empire_state_building_v1_diffuse',
+        },
+        {
+          baseColorTint: [
+            0.58799999999999997,
+            0.58799999999999997,
+            0.58799999999999997,
+            1,
+          ],
+        },
+        {
+          metallic: 1,
+        },
+        {
+          roughness: 0.408248,
+        },
+        {
+          opacity: null,
+        },
+      ],
+      source: 'build/sceneform_sdk/default_materials/obj_material.sfm',
+    },
+  ],
+  model: {
+    attributes: [
+      'Position',
+      'TexCoord',
+      'Orientation',
+    ],
+    collision: {},
+    file: 'sampledata/models/empire/10068_empire_state_building_v1_L3.obj',
+    name: '10068_empire_state_building_v1_L3',
+    recenter: 'root',
+    scale: 0.00016699999999999999,
+  },
+  samplers: [
+    {
+      file: 'sampledata/models/empire\\10068_empire_state_building_v1_diffuse.jpg',
+      name: '10068_empire_state_building_v1_diffuse',
+      params: {
+        usage_type: 'Data',
+      },
+      pipeline_name: '10068_empire_state_building_v1_diffuse.jpg',
+    },
+  ],
+  version: '0.54:2',
+}

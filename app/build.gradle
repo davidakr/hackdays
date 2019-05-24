@@ -71,3 +71,15 @@ sceneform.asset('sampledata/models/statue/LibertStatue.obj',
         'default',
         'sampledata/models/statue/LibertStatue.sfa',
         'src/main/res/raw/libertstatue')
+
+
+
+sceneform.asset('sampledata/models/empire2/19468_Empire_State_Building_v1.obj',
+        'default',
+        'sampledata/models/empire2/19468_Empire_State_Building_v1.sfa',
+        'src/main/assets/19468_Empire_State_Building_v1')
+
+sceneform.asset('sampledata/models/empire/10068_empire_state_building_v1_L3.obj',
+        'default',
+        'sampledata/models/empire/10068_empire_state_building_v1_L3.sfa',
+        'src/main/res/raw/empire')
