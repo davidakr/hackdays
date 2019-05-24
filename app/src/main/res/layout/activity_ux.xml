@@ -14,7 +14,6 @@
    limitations under the License.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,20 +25,28 @@
       android:layout_height="match_parent" />
 
   <Button
-      android:id="@+id/links"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignWithParentIfMissing="false"
-      android:layout_alignParentBottom="true"
-      android:layout_centerHorizontal="false"
-      android:text="statue" />
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:id="@+id/to_forum"
+      android:text="Forum"/>
 
-  <Button
-      android:id="@+id/mitte"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_centerHorizontal="true"
-      android:text="empire" />
+    <Button
+        android:id="@+id/links"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="false"
+        android:text="statue" />
+
+    <Button
+        android:id="@+id/mitte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="empire" />
 
 </RelativeLayout>

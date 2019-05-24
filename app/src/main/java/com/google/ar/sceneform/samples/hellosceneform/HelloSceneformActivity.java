@@ -18,6 +18,7 @@ package com.google.ar.sceneform.samples.hellosceneform;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.ar.core.Anchor;
@@ -158,7 +161,14 @@ public class HelloSceneformActivity extends AppCompatActivity {
                 building.setEnabled(true);
             }
         });
-    }
+  Button toForum = findViewById(R.id.to_forum);
+    toForum.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(HelloSceneformActivity.this, ForumActivity.class));
+        }
+    });
+  }
 
     /**
      * Returns false and displays an error message if Sceneform can not run, true if Sceneform can run
