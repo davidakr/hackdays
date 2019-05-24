@@ -48,7 +48,11 @@ public class FragmentPagerSupport extends FragmentActivity {
         @Override
         public Fragment getItem(int position) {
             Log.d("FragmentPagerSupport", "getItem: " + position);
-            return MyFragment.newInstance(position);
+            if (position == 0) {
+                return MyArFragment.newInstance();
+            } else {
+                return MyFragment.newInstance(position);
+            }
         }
     }
 
@@ -61,7 +65,6 @@ public class FragmentPagerSupport extends FragmentActivity {
          */
         static MyFragment newInstance(int num) {
             MyFragment f = new MyFragment();
-
             return f;
         }
 
