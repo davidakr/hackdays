@@ -43,6 +43,7 @@ public class HelloSceneformActivity extends AppCompatActivity {
 
   private ArFragment arFragment;
   private ModelRenderable andyRenderable;
+  private boolean modelIsSet = false;
 
   @Override
   @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -84,14 +85,17 @@ public class HelloSceneformActivity extends AppCompatActivity {
           AnchorNode anchorNode = new AnchorNode(anchor);
           anchorNode.setParent(arFragment.getArSceneView().getScene());
 
-          // Create the transformable andy and add it to the anchor.
-          TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
-          andy.setParent(anchorNode);
-          andy.setRenderable(andyRenderable);
-          andy.getRotationController().setEnabled(false);
-          andy.getScaleController().setEnabled(false);
-          andy.getTranslationController().setEnabled(false);
-          andy.select();
+          if(!modelIsSet){
+              // Create the transformable andy and add it to the anchor.
+              TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
+              andy.setParent(anchorNode);
+              andy.setRenderable(andyRenderable);
+              andy.getRotationController().setEnabled(false);
+              andy.getScaleController().setEnabled(false);
+              andy.getTranslationController().setEnabled(false);
+              andy.select();
+              modelIsSet = true;
+          }
         });
   }
 
