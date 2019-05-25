@@ -23,6 +23,7 @@ public class ForumOverviewActivity extends AppCompatActivity
     private ListView lv;
     private CustomAdapter adapter;
     private String modelTitle;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,8 +34,9 @@ public class ForumOverviewActivity extends AppCompatActivity
 
         ArrayList<Post> posts = Post.getPosts();
         adapter = new CustomAdapter(this, posts);
-        Intent intent = getIntent();
-        modelTitle = intent.getExtras().getString("MODEL_TITLE");
+        intent = getIntent();
+
+        if (intent.hasExtra("MODEL_TITLE")) modelTitle = intent.getExtras().getString("MODEL_TITLE");
 
 
         lv = (ListView) findViewById(R.id.myListView);
@@ -60,37 +62,48 @@ public class ForumOverviewActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.option, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
 
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String query)
+            {
                 // perform query here
                 // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
                 // see https://code.google.com/p/android/issues/detail?id=24599
                 searchView.clearFocus();
                 return true;
             }
+
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String newText)
+            {
                 return false;
             }
         });
 
         FloatingActionButton addQuestion = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        addQuestion.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                new DialogOut().show(getSupportFragmentManager(),"tag");
+        addQuestion.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View arg0)
+            {
+                new DialogOut().show(getSupportFragmentManager(), "tag");
             }
         });
 
-        searchItem.expandActionView();
-        searchView.setQuery(modelTitle, true);
+        if (intent.hasExtra("MODEL_TITLE"))
+        {
+            searchItem.expandActionView();
+            searchView.setQuery(modelTitle, true);
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 };
