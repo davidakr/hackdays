@@ -108,6 +108,14 @@ public class HelloSceneformActivity extends AppCompatActivity {
                         anchorIsSet = true;
                     }
                 });
+
+        findViewById(R.id.to_forum).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(new Intent(HelloSceneformActivity.this, ForumActivity.class));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
