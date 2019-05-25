@@ -25,9 +25,9 @@ public class DialogOut extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         EditText edusername = (EditText)view.findViewById(R.id.username);
                         String topic = edusername.getText().toString();
-
-                        Post post = new Post(topic, "lala", "lol", 0);
+                        Post post = new Post(topic, "Alex", 0, "");
                         Post.addPost(post);
+                        new PostAsyncTask().execute("https://lhfl.herokuapp.com/threads/add?header=" + topic + "&author=Alex");
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {

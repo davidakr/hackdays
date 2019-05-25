@@ -7,32 +7,27 @@ public class Post {
     //declare private data instead of public to ensure the privacy of data field of each class
     private String title;
     private String author;
-    private String question;
     private Integer vote;
+    private String id;
 
     static ArrayList<Post> users = new ArrayList<Post>();
-    static {
-        users.add(new Post("Where to go out in NY?", "I am staying in Brooklin for the week and I am looking for stuff", "Alan", 0));
-        users.add(new Post("Where to go out in LA?", "I am staying in Campton for the week and I am looking for stuff", "Alan", 0));
-        users.add(new Post("Where to go out in Boston?", "I am staying in some place in Boston for the week and I am looking for stuff","Alan", 0));
-    }
 
     private ArrayList<Comment> comments;
 
-    public Post(String title, String question, ArrayList<Comment> comments, String author, Integer vote) {
+    public Post(String title, ArrayList<Comment> comments, String author, Integer vote, String id) {
         this.title = title;
-        this.question = question;
         this.vote = vote;
         this.author = author;
         this.comments = comments;
+        this.id = id;
     }
 
-    public Post(String title, String question, String author, Integer vote) {
+    public Post(String title, String author, Integer vote, String id) {
         this.title = title;
-        this.question = question;
         this.vote = vote;
         this.author = author;
         this.comments = new ArrayList<>();
+        this.id = id;
     }
 
     //retrieve user's name
@@ -41,9 +36,6 @@ public class Post {
     }
 
     //retrieve users' hometown
-    public String getQuestion(){
-        return question;
-    }
 
     public String getVote(){
         return vote.toString();
@@ -55,6 +47,8 @@ public class Post {
     {
         vote++;
     }
+
+    public String getId() { return id; }
 
     // load from url - same signature
     public static ArrayList<Post> getPosts()

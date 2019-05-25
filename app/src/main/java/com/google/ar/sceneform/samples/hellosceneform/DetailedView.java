@@ -27,12 +27,11 @@ public class DetailedView extends AppCompatActivity
 
         post = posts.get(position);
         TextView textViewTitle = (TextView) findViewById(R.id.textView_title);
-        TextView textViewQuestion = (TextView) findViewById(R.id.textView_question);
         TextView textViewVote = (TextView) findViewById(R.id.textView_vote);
         TextView textViewAuthor = (TextView) findViewById(R.id.textView_author);
 
+
         textViewTitle.setText(post.getTitle());
-        textViewQuestion.setText(post.getQuestion());
         textViewVote.setText(post.getVote());
         String author_text = "Posted by " + post.getAuthor();
         textViewAuthor.setText(author_text);
@@ -43,6 +42,14 @@ public class DetailedView extends AppCompatActivity
         post.upVote();
         TextView textViewVote = (TextView) findViewById(R.id.textView_vote);
         textViewVote.setText(post.getVote());
+        String id = post.getId();
+
+        String[] id_string = id.split(":");
+        String id_value = id_string[1].replace("\"","");
+        id_value = id_value.replace("}","");
+        id_value = id_value.replace("{","");
+
+        new PostAsyncTask().execute("https://lhfl.herokuapp.com/threads/like/" + id_value);
     }
 
     @Override

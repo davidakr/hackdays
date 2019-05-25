@@ -202,8 +202,8 @@ public class ForumOverviewActivity extends AppCompatActivity
                     // fill JSON data into ArrayList
                     for (int i = 0; i < jsonData.length(); i++) {
                         JSONObject x = jsonData.getJSONObject(i);
+                        String id = String.valueOf(x.get(x.names().getString(0)));
                         String title = String.valueOf(x.get(x.names().getString(1)));
-                        String question = String.valueOf(x.get(x.names().getString(1)));
                         ArrayList<Comment> comments = new ArrayList<>();
                         String commentString = String.valueOf(x.get(x.names().getString(4)));
                         String[] coms = commentString.split("\\],\\[");
@@ -219,7 +219,7 @@ public class ForumOverviewActivity extends AppCompatActivity
                         }
                         String author = String.valueOf(x.get(x.names().getString(2)));
                         Integer rating = Integer.parseInt(String.valueOf(x.get(x.names().getString(3))));
-                        posts.add(new Post(title, question, comments, author, rating));
+                        posts.add(new Post(title, comments, author, rating, id));
                     }
                 }
             } catch (IOException | JSONException e) {
