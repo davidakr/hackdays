@@ -14,7 +14,7 @@ public class DialogOut extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-        builder.setTitle("Type your Question!")
+        builder.setTitle("Ask your Question!")
                 .setView(inflater.inflate(R.layout.dialogquestion, null))
                 .setPositiveButton("send", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

@@ -21,6 +21,7 @@ public class ForumOverviewActivity extends AppCompatActivity
 {
 
     private ListView lv;
+    private CustomAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,7 +31,7 @@ public class ForumOverviewActivity extends AppCompatActivity
 
 
         ArrayList<Post> posts = Post.getPosts();
-        CustomAdapter adapter = new CustomAdapter(this, posts);
+        adapter = new CustomAdapter(this, posts);
 
 
         lv = (ListView) findViewById(R.id.myListView);
@@ -46,22 +47,13 @@ public class ForumOverviewActivity extends AppCompatActivity
                         startActivityForResult(myIntent, 0);
                     }
                 });
-
-        FloatingActionButton addBtn = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        //addBtn.setAdapter(adapter);
-
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // your handler code here
-            }
-        });
     }
 
     @Override
     public void onResume()
     {
         super.onResume();
-        lv.deferNotifyDataSetChanged();
+        lv.invalidateViews();
     }
 
     @Override
