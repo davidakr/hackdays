@@ -85,6 +85,7 @@ public class ForumOverviewActivity extends AppCompatActivity
                 // perform query here
                 // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
                 // see https://code.google.com/p/android/issues/detail?id=24599
+                new GetAsyncTask().execute("https://lhfl.herokuapp.com/threads/search/" + query);
                 searchView.clearFocus();
                 return true;
             }
