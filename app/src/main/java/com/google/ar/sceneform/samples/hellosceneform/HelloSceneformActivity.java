@@ -41,6 +41,7 @@ import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
+import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.TransformableNode;
 
 import java.util.ArrayList;
@@ -58,6 +59,8 @@ public class HelloSceneformActivity extends AppCompatActivity {
     private AnchorNode anchorNode;
 
     private List<SightModel> models;
+    private List<ViewRenderable> speechBubbles = new ArrayList<>();
+
     {
         models = new ArrayList<>();
         models.add(new SightModel("Empire State Building", "TODO", R.raw.empire));
@@ -105,6 +108,8 @@ public class HelloSceneformActivity extends AppCompatActivity {
                             createNode(model);
                         }
 
+                        addSpeechBubble(speechBubbles.get(0));
+
                         loadedNodes.get(currentModel).setEnabled(true);
                         indicators.get(currentModel).setVisibility(View.VISIBLE);
 
@@ -124,6 +129,12 @@ public class HelloSceneformActivity extends AppCompatActivity {
         indicators.add(findViewById(R.id.circle1));
         indicators.add(findViewById(R.id.circle2));
         indicators.add(findViewById(R.id.circle3));
+
+        ViewRenderable.builder()
+                .setView(this, R.layout.speech_bubble)
+                .build()
+                .thenAccept(renderable -> speechBubbles.add(renderable));
+
     }
 
     @Override
@@ -276,6 +287,23 @@ public class HelloSceneformActivity extends AppCompatActivity {
         node.setEnabled(false);
 
         loadedNodes.add(node);
+    }
+
+    private void addSpeechBubble(ViewRenderable vr) {
+        Quaternion q1 = anchorNode.getLocalRotation();
+        Vector3 currentLocation = anchorNode.getWorldPosition();
+        Vector3 transformationVector = new Vector3(currentLocation.x, currentLocation.y, currentLocation.z);
+
+        TransformableNode node = new TransformableNode(arFragment.getTransformationSystem());
+        node.setParent(anchorNode);
+        node.setRenderable(vr);
+        node.getRotationController().setEnabled(false);
+        node.getScaleController().setEnabled(false);
+        node.getTranslationController().setEnabled(false);
+        node.setWorldPosition(transformationVector);
+        //building.setLocalScale(new Vector3(0.03f, 0.03f, 0.03f));
+        node.select();
+        node.setEnabled(true);
     }
 
 }
