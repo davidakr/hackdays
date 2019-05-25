@@ -81,17 +81,22 @@ public class ForumOverviewActivity extends AppCompatActivity
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
+
         });
 
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
-            public boolean onClose() {
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
                 queryResult = "";
-                adapter.notifyDataSetChanged();
-                Toast.makeText(getApplicationContext(), "msg msg", Toast.LENGTH_SHORT).show();
-                return true;//Should work.
+                searchView.setQuery("", true);
+                return true;
             }
         });
+
 
         FloatingActionButton addQuestion = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         addQuestion.setOnClickListener(new View.OnClickListener() {
@@ -101,8 +106,8 @@ public class ForumOverviewActivity extends AppCompatActivity
         });
 
 
-        searchItem.expandActionView();
-        searchView.setQuery("Empire State Building", true);
+        //searchItem.expandActionView();
+        //searchView.setQuery("Empire State Building", true);
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -39,6 +39,11 @@ public class CustomAdapter extends ArrayAdapter<Post> {
                 tvTitle.setTextSize(25);
                 tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
             }
+        } else {
+            if (position <= 2 ) {
+                tvTitle.setTextSize(20);
+                tvTitle.setTypeface(Typeface.DEFAULT);
+            }
         }
         // Return the completed view to render on screen
         return convertView;
