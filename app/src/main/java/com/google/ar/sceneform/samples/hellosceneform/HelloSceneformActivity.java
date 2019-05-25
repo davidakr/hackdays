@@ -231,14 +231,22 @@ public class HelloSceneformActivity extends AppCompatActivity {
             //building.setLocalScale(new Vector3(0.03f, 0.03f, 0.03f));
             node.select();
         } else {
-            // TODO one world trade center scale
+            Quaternion q1 = anchorNode.getLocalRotation();
+            Vector3 rotationVector = new Vector3(-90, 0, 0);
+            Quaternion q2 = Quaternion.eulerAngles(rotationVector);
+            Vector3 currentLocation = anchorNode.getWorldPosition();
+            Vector3 transformationVector = new Vector3(currentLocation.x - 0.0f, currentLocation.y + 0.12f, currentLocation.z - 0.0f);
+
             node = new MyTransformableNode(arFragment.getTransformationSystem(), this);
             node.setParent(anchorNode);
             node.setRenderable(model.getRenderable());
             node.getRotationController().setEnabled(false);
             node.getScaleController().setEnabled(false);
             node.getTranslationController().setEnabled(false);
-            node.setLocalScale(new Vector3(0.2f, 0.2f, 0.2f));
+            node.setWorldPosition(transformationVector);
+            node.setLocalScale(new Vector3(0.04f, 0.04f, 0.04f));
+            node.setLocalRotation(Quaternion.multiply(q1, q2));
+            //building.setLocalScale(new Vector3(0.03f, 0.03f, 0.03f));
             node.select();
         }
 
