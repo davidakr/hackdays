@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/lhYellow">
+    android:background="@color/lhBlue">
 
     <TextView
         android:id="@+id/bubble_text"
@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="6dp"
+        android:padding="2dp"
         android:text="Hello this is so good ello this is so go ello this is so go ello this is so go"
         android:textAlignment="center" />
 

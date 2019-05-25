@@ -300,12 +300,6 @@ public class HelloSceneformActivity extends AppCompatActivity {
     }
 
     private void addSpeechBubble(ViewRenderable vr, Vector3 location) {
-        Quaternion q1 = anchorNode.getLocalRotation();
-        Vector3 currentLocation = anchorNode.getWorldPosition();
-
-//        Vector3 transformationVector = new Vector3((float) (currentLocation.x + Math.random() * 0.1),
-//                (float) (currentLocation.y + Math.random() * 0.1), (float) (currentLocation.z + Math.random() * 0.1));
-
         TransformableNode node = new TransformableNode(arFragment.getTransformationSystem());
         node.setParent(anchorNode);
         node.setRenderable(vr);
@@ -313,30 +307,32 @@ public class HelloSceneformActivity extends AppCompatActivity {
         node.getScaleController().setEnabled(false);
         node.getTranslationController().setEnabled(false);
         node.setWorldPosition(location);
-        node.setLocalScale(new Vector3(0.2f, 0.2f, 0.2f));
+        final float scale = 0.15f;
+        node.setLocalScale(new Vector3(scale, scale, scale));
         node.select();
         node.setEnabled(true);
     }
 
     private List<Vector3> distributeEvenly(int n, Vector3 base) {
+        // assumption: x,z plane is the ground
         final int cardsPerSlice = 5;
-        final float sliceDist = 1f;
-        final float distFromCenter = 0.8f;
+        final float sliceDist = 0.07f;
+        final float distFromCenter = 0.1f;
         List<Vector3> points = new ArrayList<>();
-        // Distribute into slices along z-axis. In each slice, they are distributed along a circle.
+        // Distribute into slices along y-axis. In each slice, they are distributed along a circle.
         for (int i = 0; i < n; i += cardsPerSlice) {
             int nInCircle = Math.min(n - i, cardsPerSlice);
-            float z = base.z + sliceDist * i / cardsPerSlice;
+            float y = base.y + sliceDist * i / cardsPerSlice;
             // slices are perpendicular to z-axis
             float x0 = base.x;
-            float y0 = base.y;
+            float z0 = base.z;
             for (int j = 0; j < nInCircle; j++) {
                 // radians
                 float angle = (float) ((float) j / nInCircle * 2 * Math.PI);
                 float radius = distFromCenter;
                 float x1 = (float) (x0 + radius * Math.cos(angle));
-                float y1 = (float) (y0 + radius * Math.sin(angle));
-                points.add(new Vector3(x1, y1, z));
+                float z1 = (float) (z0 + radius * Math.sin(angle));
+                points.add(new Vector3(x1, y, z1));
             }
         }
 
