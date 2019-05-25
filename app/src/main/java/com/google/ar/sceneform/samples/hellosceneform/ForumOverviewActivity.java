@@ -171,6 +171,8 @@ public class ForumOverviewActivity extends AppCompatActivity
             posts.clear();
             posts.addAll(value);
             adapter.notifyDataSetChanged();
+            lv.setVisibility(View.VISIBLE);
+            findViewById(R.id.progressBar).setVisibility(View.GONE);
         }
     }
 }
