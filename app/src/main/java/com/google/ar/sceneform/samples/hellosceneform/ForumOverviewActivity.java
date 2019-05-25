@@ -10,8 +10,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public class ForumOverviewActivity extends AppCompatActivity
 
     private ListView lv;
     private CustomAdapter adapter;
+    private static String queryResult = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -67,15 +70,26 @@ public class ForumOverviewActivity extends AppCompatActivity
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // perform query here
-                // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
-                // see https://code.google.com/p/android/issues/detail?id=24599
+                queryResult = query;
+                if(query.equals("Empire State Building")){
+                    adapter.notifyDataSetChanged();
+                }
                 searchView.clearFocus();
                 return true;
             }
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                queryResult = "";
+                adapter.notifyDataSetChanged();
+                Toast.makeText(getApplicationContext(), "msg msg", Toast.LENGTH_SHORT).show();
+                return true;//Should work.
             }
         });
 
@@ -86,9 +100,14 @@ public class ForumOverviewActivity extends AppCompatActivity
             }
         });
 
+
         searchItem.expandActionView();
         searchView.setQuery("Empire State Building", true);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    public static String returnQuery() {
+        return queryResult;
     }
 };
 
