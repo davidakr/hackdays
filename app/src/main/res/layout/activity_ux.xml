@@ -56,10 +56,12 @@
                 android:visibility="gone"/>
 
             <ImageView
+                android:id="@+id/img1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:src="@drawable/empire_state_round" />
+                android:src="@drawable/empire_state_round"
+                android:tag="1"/>
 
         </FrameLayout>
 
@@ -76,10 +78,12 @@
                 android:visibility="gone"/>
 
             <ImageView
+                android:id="@+id/img2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:src="@drawable/one_world_trade_round" />
+                android:src="@drawable/one_world_trade_round"
+                android:tag="2"/>
 
         </FrameLayout>
 
@@ -96,10 +100,12 @@
                 android:visibility="gone"/>
 
             <ImageView
+                android:id="@+id/img3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:src="@drawable/statue_liberty_round" />
+                android:src="@drawable/statue_liberty_round"
+                android:tag="3"/>
 
         </FrameLayout>
 

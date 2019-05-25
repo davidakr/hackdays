@@ -124,6 +124,17 @@ public class HelloSceneformActivity extends AppCompatActivity {
         indicators.add(findViewById(R.id.circle1));
         indicators.add(findViewById(R.id.circle2));
         indicators.add(findViewById(R.id.circle3));
+
+        for (int id : new int[] {R.id.img1, R.id.img2, R.id.img3}) {
+            View v = findViewById(id);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int target = Integer.parseInt((String) v.getTag()) - 1;
+                    setModel(target);
+                }
+            });
+        }
     }
 
     @Override
@@ -177,6 +188,20 @@ public class HelloSceneformActivity extends AppCompatActivity {
         loadedNodes.get(currentModel).setEnabled(true);
         indicators.get(currentModel).setVisibility(View.VISIBLE);
     }
+
+    public void setModel(int index) {
+        if (!anchorIsSet) {
+            return;
+        }
+        int oldModel = currentModel;
+        currentModel = index;
+
+        loadedNodes.get(oldModel).setEnabled(false);
+        indicators.get(oldModel).setVisibility(View.GONE);
+        loadedNodes.get(currentModel).setEnabled(true);
+        indicators.get(currentModel).setVisibility(View.VISIBLE);
+    }
+
 
 
     /**

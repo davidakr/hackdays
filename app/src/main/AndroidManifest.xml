@@ -12,6 +12,8 @@
         android:name="android.hardware.camera.ar"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"

@@ -41,7 +41,7 @@
         android:background="@drawable/star"
         android:text="Vote"
         android:gravity="center"
-        android:textSize="15sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

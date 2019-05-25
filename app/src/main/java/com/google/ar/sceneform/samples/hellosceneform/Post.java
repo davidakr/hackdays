@@ -17,12 +17,22 @@ public class Post {
         users.add(new Post("Where to go out in Boston?", "I am staying in some place in Boston for the week and I am looking for stuff","Alan", 0));
     }
 
-    public Post(String title, String question, String author, Integer vote)
-    {
+    private ArrayList<Comment> comments;
+
+    public Post(String title, String question, ArrayList<Comment> comments, String author, Integer vote) {
         this.title = title;
         this.question = question;
         this.vote = vote;
         this.author = author;
+        this.comments = comments;
+    }
+
+    public Post(String title, String question, String author, Integer vote) {
+        this.title = title;
+        this.question = question;
+        this.vote = vote;
+        this.author = author;
+        this.comments = new ArrayList<>();
     }
 
     //retrieve user's name
@@ -50,6 +60,14 @@ public class Post {
     public static ArrayList<Post> getPosts()
     {
         return users;
+    }
+
+    public static void setPosts(ArrayList<Post> p) {
+        users = p;
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
     }
 }
 
