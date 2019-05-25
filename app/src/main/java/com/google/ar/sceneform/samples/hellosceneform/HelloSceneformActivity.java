@@ -25,11 +25,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.ar.core.Anchor;
@@ -41,6 +43,7 @@ import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
+import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.TransformableNode;
 
 import java.util.ArrayList;
@@ -58,6 +61,8 @@ public class HelloSceneformActivity extends AppCompatActivity {
     private AnchorNode anchorNode;
 
     private List<SightModel> models;
+    private List<ViewRenderable> speechBubbles = new ArrayList<>();
+
     {
         models = new ArrayList<>();
         models.add(new SightModel("Empire State Building", "TODO", R.raw.empire));
@@ -105,6 +110,11 @@ public class HelloSceneformActivity extends AppCompatActivity {
                             createNode(model);
                         }
 
+                        List<Vector3> speechBubblePositions = distributeEvenly(speechBubbles.size(), anchorNode.getWorldPosition());
+                        for (int i = 0; i < speechBubbles.size(); i++) {
+                            addSpeechBubble(speechBubbles.get(i), speechBubblePositions.get(i));
+                        }
+
                         loadedNodes.get(currentModel).setEnabled(true);
                         indicators.get(currentModel).setVisibility(View.VISIBLE);
 
@@ -124,6 +134,17 @@ public class HelloSceneformActivity extends AppCompatActivity {
         indicators.add(findViewById(R.id.circle1));
         indicators.add(findViewById(R.id.circle2));
         indicators.add(findViewById(R.id.circle3));
+
+        for (String s : new String[]{"How to get in past 6pm?", "How much is it?", "Is it family-friendly?",
+                "I like gandolf cause he", "Is a chill wizard", "P=NP", "Benajs djgjdds", "sdgagsjkagag", "dsgjkhaskghaskjgashgkjga"}) {
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final View view = inflater.inflate(R.layout.speech_bubble, null);
+            ((TextView) view.findViewById(R.id.bubble_text)).setText(s);
+            ViewRenderable.builder()
+                    .setView(this, view)
+                    .build()
+                    .thenAccept(renderable -> speechBubbles.add(renderable));
+        }
 
         for (int id : new int[] {R.id.img1, R.id.img2, R.id.img3}) {
             View v = findViewById(id);
@@ -302,6 +323,46 @@ public class HelloSceneformActivity extends AppCompatActivity {
         node.setEnabled(false);
 
         loadedNodes.add(node);
+    }
+
+    private void addSpeechBubble(ViewRenderable vr, Vector3 location) {
+        TransformableNode node = new TransformableNode(arFragment.getTransformationSystem());
+        node.setParent(anchorNode);
+        node.setRenderable(vr);
+        node.getRotationController().setEnabled(false);
+        node.getScaleController().setEnabled(false);
+        node.getTranslationController().setEnabled(false);
+        node.setWorldPosition(location);
+        final float scale = 0.15f;
+        node.setLocalScale(new Vector3(scale, scale, scale));
+        node.select();
+        node.setEnabled(true);
+    }
+
+    private List<Vector3> distributeEvenly(int n, Vector3 base) {
+        // assumption: x,z plane is the ground
+        final int cardsPerSlice = 5;
+        final float sliceDist = 0.07f;
+        final float distFromCenter = 0.1f;
+        List<Vector3> points = new ArrayList<>();
+        // Distribute into slices along y-axis. In each slice, they are distributed along a circle.
+        for (int i = 0; i < n; i += cardsPerSlice) {
+            int nInCircle = Math.min(n - i, cardsPerSlice);
+            float y = base.y + sliceDist * i / cardsPerSlice;
+            // slices are perpendicular to z-axis
+            float x0 = base.x;
+            float z0 = base.z;
+            for (int j = 0; j < nInCircle; j++) {
+                // radians
+                float angle = (float) ((float) j / nInCircle * 2 * Math.PI);
+                float radius = distFromCenter;
+                float x1 = (float) (x0 + radius * Math.cos(angle));
+                float z1 = (float) (z0 + radius * Math.sin(angle));
+                points.add(new Vector3(x1, y, z1));
+            }
+        }
+
+        return points;
     }
 
 }
