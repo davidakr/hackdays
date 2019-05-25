@@ -12,10 +12,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +42,7 @@ public class ForumOverviewActivity extends AppCompatActivity
     private String modelTitle;
     Intent intent;
     private ArrayList<Post> posts;
+    private static String queryResult = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -106,7 +109,22 @@ public class ForumOverviewActivity extends AppCompatActivity
             {
                 return false;
             }
+
         });
+
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                queryResult = "";
+                searchView.setQuery("", true);
+                return true;
+            }
+        });
+
 
         FloatingActionButton addQuestion = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         addQuestion.setOnClickListener(new View.OnClickListener()
@@ -141,6 +159,9 @@ public class ForumOverviewActivity extends AppCompatActivity
             searchView.setQuery(modelTitle, true);
         }
 
+
+        //searchItem.expandActionView();
+        //searchView.setQuery("Empire State Building", true);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -214,6 +235,11 @@ public class ForumOverviewActivity extends AppCompatActivity
         }
     }
 }
+
+    public static String returnQuery() {
+        return queryResult;
+    }
+};
 
 
 
