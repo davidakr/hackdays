@@ -32,6 +32,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.ar.core.Anchor;
@@ -63,6 +65,10 @@ public class HelloSceneformActivity extends AppCompatActivity {
     private boolean showEmpire = false;
     private AnchorNode anchorNode;
     private View toForumSpecial;
+    private ImageView infoBtn;
+    private ImageView closeBox;
+    private LinearLayout infoBox;
+
     Button Button;
 
     private TransformableNode building;
@@ -176,6 +182,23 @@ public class HelloSceneformActivity extends AppCompatActivity {
                 if(anchorIsSet) {
                     startActivity(new Intent(HelloSceneformActivity.this, ForumActivity.class));
                 }
+            }
+        });
+        infoBtn = findViewById(R.id.informationBtn);
+        infoBox = findViewById(R.id.informationBox);
+        closeBox = findViewById(R.id.closeBox);
+
+        infoBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                infoBtn.setVisibility(View.GONE);
+                infoBox.setVisibility(View.VISIBLE);
+            }
+        });
+
+        closeBox.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                infoBox.setVisibility(View.GONE);
+                infoBtn.setVisibility(View.VISIBLE);
             }
         });
     }
