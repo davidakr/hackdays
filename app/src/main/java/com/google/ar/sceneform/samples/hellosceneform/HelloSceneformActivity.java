@@ -56,7 +56,6 @@ public class HelloSceneformActivity extends AppCompatActivity {
     private MyArFragment arFragment;
     private boolean anchorIsSet = false;
     private AnchorNode anchorNode;
-    private View toForumSpecial;
 
     private List<SightModel> models;
     {
@@ -96,7 +95,6 @@ public class HelloSceneformActivity extends AppCompatActivity {
                         anchorNode = new AnchorNode(anchor);
                         anchorNode.setParent(arFragment.getArSceneView().getScene());
                         arFragment.getArSceneView().getPlaneRenderer().setEnabled(false);
-                        toForumSpecial.setVisibility(View.VISIBLE);
                         anchorIsSet = true;
                     }
                     if (anchorIsSet) {
@@ -110,17 +108,6 @@ public class HelloSceneformActivity extends AppCompatActivity {
                         anchorIsSet = true;
                     }
                 });
-
-        toForumSpecial = findViewById(R.id.view);
-        toForumSpecial.setVisibility(View.GONE);
-        toForumSpecial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(anchorIsSet) {
-                    startActivity(new Intent(HelloSceneformActivity.this, ForumActivity.class));
-                }
-            }
-        });
     }
 
     private void loadModel(SightModel model) {
@@ -235,6 +222,15 @@ public class HelloSceneformActivity extends AppCompatActivity {
             node.setLocalScale(new Vector3(0.2f, 0.2f, 0.2f));
             node.select();
         }
+
+        node.setOnTapListener(new Node.OnTapListener() {
+            @Override
+            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
+                Intent intent = new Intent(new Intent(HelloSceneformActivity.this, ForumActivity.class));
+                intent.putExtra("MODEL_ID", model.getRes());
+                startActivity(intent);
+            }
+        });
 
         node.setEnabled(false);
 

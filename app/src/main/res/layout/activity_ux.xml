@@ -35,10 +35,4 @@
       android:alpha="0.7"
       android:src="@mipmap/ic_right" />
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="300px"
-        android:layout_height="300px"
-        android:layout_centerInParent="true" />
-
 </RelativeLayout>
