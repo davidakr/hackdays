@@ -11,7 +11,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="topic" />
+        android:hint="Topic" />
     <EditText
         android:id="@+id/password"
         android:inputType="textLongMessage"
@@ -22,5 +22,5 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
-        android:hint="your Question"/>
+        android:hint="Your Question"/>
 </LinearLayout>
