@@ -99,6 +99,7 @@ public class ForumOverviewActivity extends AppCompatActivity
                 // perform query here
                 // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
                 // see https://code.google.com/p/android/issues/detail?id=24599
+                queryResult = query;
                 new GetAsyncTask().execute("https://lhfl.herokuapp.com/threads/search/" + query);
                 searchView.clearFocus();
                 return true;
@@ -119,8 +120,10 @@ public class ForumOverviewActivity extends AppCompatActivity
             }
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
+                //adapter.notifyDataSetChanged();
                 queryResult = "";
-                searchView.setQuery("", true);
+                new GetAsyncTask().execute("https://lhfl.herokuapp.com/threads");
+                //Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -209,7 +212,10 @@ public class ForumOverviewActivity extends AppCompatActivity
                             com = com.replace("[", "");
                             com = com.replace("]", "");
                             String[] co = com.split(",");
-                            comments.add(new Comment(co[0], co[2], Integer.parseInt(co[1])));
+                            if(co.length == 3){
+                                comments.add(new Comment(co[0], co[2], Integer.parseInt(co[1])));
+                            }
+
                         }
                         String author = String.valueOf(x.get(x.names().getString(2)));
                         Integer rating = Integer.parseInt(String.valueOf(x.get(x.names().getString(3))));
@@ -234,7 +240,7 @@ public class ForumOverviewActivity extends AppCompatActivity
             findViewById(R.id.progressBar).setVisibility(View.GONE);
         }
     }
-}
+
 
     public static String returnQuery() {
         return queryResult;

@@ -35,18 +35,21 @@ public class CustomAdapter extends ArrayAdapter<Post> {
         // Populate the data into the template view using the data object
         tvTitle.setText(post.getTitle());
         // tvQuestion.setText(post.getQuestion());
+        String query = ForumOverviewActivity.returnQuery();
         tvVote.setText(post.getVote());
-        if(ForumOverviewActivity.returnQuery().equals("Empire State Building")){
+        if(query.equals("Empire State Building") ||
+                query.equals("One World Trade Center") ||
+                query.equals("Statue of Liberty")){
             if (position <= 2 ) {
-                tvTitle.setTextSize(25);
+                //tvTitle.setTextSize(25);
                 tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
+                //tvVote.setBackground();
             }
         } else {
-            if (position <= 2 ) {
-                tvTitle.setTextSize(20);
+
                 tvTitle.setTypeface(Typeface.DEFAULT);
-            }
         }
+        tvTitle.setTextSize(20);
         // Return the completed view to render on screen
         return convertView;
     }
