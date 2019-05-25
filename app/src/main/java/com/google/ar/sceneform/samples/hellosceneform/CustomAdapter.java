@@ -12,6 +12,8 @@ import java.util.ArrayList;
 public class CustomAdapter extends ArrayAdapter<Post> {
     public CustomAdapter(Context context, ArrayList<Post> posts) {
         super(context, 0, posts);
+
+
     }
 
     @Override
