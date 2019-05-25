@@ -22,6 +22,7 @@ public class ForumOverviewActivity extends AppCompatActivity
 
     private ListView lv;
     private CustomAdapter adapter;
+    private String modelTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,6 +33,8 @@ public class ForumOverviewActivity extends AppCompatActivity
 
         ArrayList<Post> posts = Post.getPosts();
         adapter = new CustomAdapter(this, posts);
+        Intent intent = getIntent();
+        modelTitle = intent.getExtras().getString("MODEL_TITLE");
 
 
         lv = (ListView) findViewById(R.id.myListView);
@@ -87,7 +90,7 @@ public class ForumOverviewActivity extends AppCompatActivity
         });
 
         searchItem.expandActionView();
-        searchView.setQuery("Empire State Building", true);
+        searchView.setQuery(modelTitle, true);
         return super.onCreateOptionsMenu(menu);
     }
 };

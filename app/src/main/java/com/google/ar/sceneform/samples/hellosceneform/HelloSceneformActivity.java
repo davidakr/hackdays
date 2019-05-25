@@ -269,6 +269,7 @@ public class HelloSceneformActivity extends AppCompatActivity {
             public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
                 Intent intent = new Intent(new Intent(HelloSceneformActivity.this, ForumOverviewActivity.class));
                 intent.putExtra("MODEL_ID", model.getRes());
+                intent.putExtra("MODEL_TITLE", model.getTitle());
                 startActivity(intent);
             }
         });
