@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 
 public class DialogOut extends DialogFragment {
     @Override
@@ -14,11 +16,18 @@ public class DialogOut extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
+        View view = inflater.inflate(R.layout.dialogquestion, null);
+
+
         builder.setTitle("Ask your Question!")
-                .setView(inflater.inflate(R.layout.dialogquestion, null))
+                .setView(view)
                 .setPositiveButton("send", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // FIRE ZE MISSILES!
+                        EditText edusername = (EditText)view.findViewById(R.id.username);
+                        String topic = edusername.getText().toString();
+
+                        Post post = new Post(topic, "lala", "lol", 0);
+                        Post.addPost(post);
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {

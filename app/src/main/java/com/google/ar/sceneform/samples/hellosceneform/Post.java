@@ -66,6 +66,8 @@ public class Post {
         users = p;
     }
 
+    public static void addPost(Post post) { users.add(post); }
+
     public void addComment(Comment comment) {
         this.comments.add(comment);
     }
