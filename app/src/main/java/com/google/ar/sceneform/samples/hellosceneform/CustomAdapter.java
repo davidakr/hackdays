@@ -2,6 +2,7 @@ package com.google.ar.sceneform.samples.hellosceneform;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,11 +44,12 @@ public class CustomAdapter extends ArrayAdapter<Post> {
             if (position <= 2 ) {
                 //tvTitle.setTextSize(25);
                 tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
-                //tvVote.setBackground();
+                tvVote.setBackgroundResource(R.drawable.star_blue);
             }
         } else {
 
                 tvTitle.setTypeface(Typeface.DEFAULT);
+            tvVote.setBackgroundResource(R.drawable.star);
         }
         tvTitle.setTextSize(20);
         // Return the completed view to render on screen
