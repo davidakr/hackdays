@@ -2,7 +2,9 @@ package com.google.ar.sceneform.samples.hellosceneform;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
@@ -41,5 +43,20 @@ public class DetailedView extends AppCompatActivity
         post.upVote();
         TextView textViewVote = (TextView) findViewById(R.id.textView_vote);
         textViewVote.setText(post.getVote());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        FloatingActionButton addQuestion = (FloatingActionButton) findViewById(R.id.floatingActionComment);
+        addQuestion.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View arg0)
+            {
+                new DialogComment().show(getSupportFragmentManager(), "tag");
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
     }
 }

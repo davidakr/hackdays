@@ -1,5 +1,6 @@
 package com.google.ar.sceneform.samples.hellosceneform;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -95,6 +98,24 @@ public class ForumOverviewActivity extends AppCompatActivity
             public void onClick(View arg0)
             {
                 new DialogOut().show(getSupportFragmentManager(), "tag");
+
+                /*
+                final Dialog dialog = new Dialog(ForumOverviewActivity.this);
+                dialog.setContentView(R.layout.number);
+                dialog.setTitle("Save New Number");
+                dialog.setCancelable(true);
+                dialog.show();
+
+                Button saveButton = (Button)dialog.findViewById(R.id.saveButton);
+                saveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        String name = ((EditText)dialog.findViewById(R.id.nameText)).getText().toString();
+                        String number = ((EditText)dialog.findViewById(R.id.numberText)).getText().toString();
+                    }
+                });
+                */
+
             }
         });
 
