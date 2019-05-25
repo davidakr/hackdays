@@ -22,6 +22,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.support.v4.view.MotionEventCompat;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -51,7 +53,7 @@ public class HelloSceneformActivity extends AppCompatActivity {
     private static final String TAG = HelloSceneformActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
 
-    private ArFragment arFragment;
+    private MyArFragment arFragment;
     private ModelRenderable libertyRenderable;
     private ModelRenderable buildingRenderable;
     private ModelRenderable empireRenderable;
@@ -78,7 +80,7 @@ public class HelloSceneformActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_ux);
-        arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
+        arFragment = (MyArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
 
         // When you build a Renderable, Sceneform loads its resources in the background while returning
         // a CompletableFuture. Call thenAccept(), handle(), or check isDone() before calling get().

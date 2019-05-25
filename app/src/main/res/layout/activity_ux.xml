@@ -15,11 +15,13 @@
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     tools:context=".HelloSceneformActivity">
 
-  <fragment android:name="com.google.ar.sceneform.ux.ArFragment"
+  <fragment android:name="com.google.ar.sceneform.samples.hellosceneform.MyArFragment"
       android:id="@+id/ux_fragment"
       android:layout_width="match_parent"
       android:layout_height="match_parent" />
