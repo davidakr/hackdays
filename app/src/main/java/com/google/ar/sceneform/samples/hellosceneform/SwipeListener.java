@@ -2,6 +2,7 @@ package com.google.ar.sceneform.samples.hellosceneform;
 
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -21,6 +22,11 @@ public class SwipeListener extends GestureDetector.SimpleOnGestureListener {
     // Maximal x and y axis swipe distance.
     private static int MAX_SWIPE_DISTANCE_X = 1000;
     private static int MAX_SWIPE_DISTANCE_Y = 1000;
+    private final HelloSceneformActivity activity;
+
+    public SwipeListener(HelloSceneformActivity activity) {
+        this.activity = activity;
+    }
 
 
     /* This method is invoked when a swipe gesture happened. */
@@ -41,8 +47,10 @@ public class SwipeListener extends GestureDetector.SimpleOnGestureListener {
         if ((deltaXAbs >= MIN_SWIPE_DISTANCE_X) && (deltaXAbs <= MAX_SWIPE_DISTANCE_X)) {
             if (deltaX > 0) {
                 Log.d(TAG, "Swipe to left");
+                activity.prevModel();
             } else {
                 Log.d(TAG, "Swipe to right");
+                activity.nextModel();
             }
         }
 

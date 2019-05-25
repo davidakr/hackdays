@@ -19,7 +19,7 @@ public class MyArFragment extends ArFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        SwipeListener gestureListener = new SwipeListener();
+        SwipeListener gestureListener = new SwipeListener((HelloSceneformActivity) getActivity());
         gestureDetectorCompat = new GestureDetectorCompat(getActivity(), gestureListener);
 
         return super.onCreateView(inflater, container, savedInstanceState);

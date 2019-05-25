@@ -22,15 +22,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,8 +38,10 @@ import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
-import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is an example activity that uses the Sceneform UX package to make common AR tasks easier.
@@ -54,19 +51,20 @@ public class HelloSceneformActivity extends AppCompatActivity {
     private static final double MIN_OPENGL_VERSION = 3.0;
 
     private MyArFragment arFragment;
-    private ModelRenderable libertyRenderable;
-    private ModelRenderable buildingRenderable;
-    private ModelRenderable empireRenderable;
-    private boolean modelIsSet = false;
     private boolean anchorIsSet = false;
-    private boolean showStatue = true;
-    private boolean showEmpire = false;
     private AnchorNode anchorNode;
-    Button Button;
 
-    private TransformableNode building;
-    private TransformableNode statue;
+    private List<SightModel> models;
+    {
+        models = new ArrayList<>();
+        models.add(new SightModel("Empire State Building", "TODO", R.raw.empire));
+        models.add(new SightModel("One World Trade Center", "TODO", R.raw.building));
+        models.add(new SightModel("Statue of Liberty", "TODO", R.raw.libertstatue));
+    }
 
+    private List<TransformableNode> loadedNodes = new ArrayList<>();
+
+    private int currentModel = 0;
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -82,50 +80,12 @@ public class HelloSceneformActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ux);
         arFragment = (MyArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
 
-        // When you build a Renderable, Sceneform loads its resources in the background while returning
-        // a CompletableFuture. Call thenAccept(), handle(), or check isDone() before calling get().
-        ModelRenderable.builder()
-                .setSource(this, R.raw.libertstatue)
-                .build()
-                .thenAccept(renderable -> libertyRenderable = renderable)
-                .exceptionally(
-                        throwable -> {
-                            Toast toast =
-                                    Toast.makeText(this, "Unable to load liberty renderable", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-                            return null;
-                        });
-        ModelRenderable.builder()
-                .setSource(this, R.raw.building)
-                .build()
-                .thenAccept(renderable -> buildingRenderable = renderable)
-                .exceptionally(
-                        throwable -> {
-                            Toast toast =
-                                    Toast.makeText(this, "Unable to load building renderable", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-                            return null;
-                        });
-        ModelRenderable.builder()
-                .setSource(this, R.raw.empire)
-                .build()
-                .thenAccept(renderable -> empireRenderable = renderable)
-                .exceptionally(
-                        throwable -> {
-                            Toast toast =
-                                    Toast.makeText(this, "Unable to load empire renderable", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-                            return null;
-                        });
+        for (SightModel model : models) {
+            loadModel(model);
+        }
 
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
-                    if (libertyRenderable == null || buildingRenderable == null) {
-                        return;
-                    }
                     if (!anchorIsSet) {
                         // Create the Anchor.
                         Anchor anchor = hitResult.createAnchor();
@@ -136,42 +96,53 @@ public class HelloSceneformActivity extends AppCompatActivity {
 
                     }
                     if (anchorIsSet) {
-                        // Create the transformable andy and add it to the anchor.
-                        setStatue();
-                        setEmpire();
+                        // create all nodes
+                        for (SightModel model : models) {
+                            createNode(model);
+                        }
+
+                        loadedNodes.get(0).setEnabled(true);
+
                         anchorIsSet = true;
                     }
                 });
-        addListenerOnEmpireButton();
-        addListenerOnStatueButton();
     }
 
-    public void addListenerOnEmpireButton() {
-        Button = (Button) findViewById(R.id.links);
-        Button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                statue.setEnabled(true);
-                building.setEnabled(false);
-            }
-        });
+    private void loadModel(SightModel model) {
+        ModelRenderable.builder()
+                .setSource(this, model.getRes())
+                .build()
+                .thenAccept(model::setRenderable)
+                .exceptionally(
+                        throwable -> {
+                            Toast toast =
+                                    Toast.makeText(this, "Unable to load renderable", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            return null;
+                        });
     }
 
-    public void addListenerOnStatueButton() {
-        Button = (Button) findViewById(R.id.mitte);
-        Button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                statue.setEnabled(false);
-                building.setEnabled(true);
-            }
-        });
-        ImageView toForum = findViewById(R.id.to_forum);
-            toForum.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            startActivity(new Intent(HelloSceneformActivity.this, ForumActivity.class));
+    public void nextModel() {
+        if (currentModel >= loadedNodes.size() - 1) {
+            return;
         }
-    });
-  }
+        loadedNodes.get(currentModel).setEnabled(false);
+        loadedNodes.get(currentModel + 1).setEnabled(true);
+
+        currentModel++;
+    }
+
+    public void prevModel() {
+        if (currentModel == 0) {
+            return;
+        }
+        loadedNodes.get(currentModel).setEnabled(false);
+        loadedNodes.get(currentModel - 1).setEnabled(true);
+
+        currentModel--;
+    }
+
 
     /**
      * Returns false and displays an error message if Sceneform can not run, true if Sceneform can run
@@ -202,36 +173,57 @@ public class HelloSceneformActivity extends AppCompatActivity {
         return true;
     }
 
-    public void setStatue() {
-        statue = new TransformableNode(arFragment.getTransformationSystem());
-        statue.setParent(anchorNode);
-        statue.setRenderable(libertyRenderable);
-        statue.getRotationController().setEnabled(false);
-        statue.getScaleController().setEnabled(false);
-        statue.getTranslationController().setEnabled(false);
-        statue.setLocalScale(new Vector3(0.2f, 0.2f, 0.2f));
-        statue.select();
+    public void createNode(SightModel model) {
+        if (model.getRenderable() == null) {
+            Log.e(TAG, "Renderable of " + model.getTitle() + " is null");
+            return;
+        }
+
+        TransformableNode node;
+
+        // custom offsets for each model
+        if (model.getRes() == R.raw.libertstatue) {
+            node = new TransformableNode(arFragment.getTransformationSystem());
+            node.setParent(anchorNode);
+            node.setRenderable(model.getRenderable());
+            node.getRotationController().setEnabled(false);
+            node.getScaleController().setEnabled(false);
+            node.getTranslationController().setEnabled(false);
+            node.setLocalScale(new Vector3(0.2f, 0.2f, 0.2f));
+            node.select();
+        } else if (model.getRes() == R.raw.empire) {
+            Quaternion q1 = anchorNode.getLocalRotation();
+            Vector3 rotationVector = new Vector3(-90, 0, 0);
+            Quaternion q2 = Quaternion.eulerAngles(rotationVector);
+            Vector3 currentLocation = anchorNode.getWorldPosition();
+            Vector3 transformationVector = new Vector3(currentLocation.x - 0.0f, currentLocation.y + 0.12f, currentLocation.z - 0.0f);
+
+            node = new TransformableNode(arFragment.getTransformationSystem());
+            node.setParent(anchorNode);
+            node.setRenderable(model.getRenderable());
+            node.getRotationController().setEnabled(false);
+            node.getScaleController().setEnabled(false);
+            node.getTranslationController().setEnabled(false);
+            node.setWorldPosition(transformationVector);
+            node.setLocalScale(new Vector3(0.04f, 0.04f, 0.04f));
+            node.setLocalRotation(Quaternion.multiply(q1, q2));
+            //building.setLocalScale(new Vector3(0.03f, 0.03f, 0.03f));
+            node.select();
+        } else {
+            // TODO one world trade center scale
+            node = new TransformableNode(arFragment.getTransformationSystem());
+            node.setParent(anchorNode);
+            node.setRenderable(model.getRenderable());
+            node.getRotationController().setEnabled(false);
+            node.getScaleController().setEnabled(false);
+            node.getTranslationController().setEnabled(false);
+            node.setLocalScale(new Vector3(0.2f, 0.2f, 0.2f));
+            node.select();
+        }
+
+        node.setEnabled(false);
+
+        loadedNodes.add(node);
     }
 
-    private void setEmpire() {
-        Quaternion q1 = anchorNode.getLocalRotation();
-        Vector3 rotationVector = new Vector3(-90, 0, 0);
-        Quaternion q2 = Quaternion.eulerAngles(rotationVector);
-        Vector3 currentLocation = anchorNode.getWorldPosition();
-        Vector3 transformationVector = new Vector3(currentLocation.x - 0.0f, currentLocation.y + 0.12f, currentLocation.z - 0.0f);
-
-        building = new TransformableNode(arFragment.getTransformationSystem());
-        building.setParent(anchorNode);
-        building.setRenderable(empireRenderable);
-        building.getRotationController().setEnabled(false);
-        building.getScaleController().setEnabled(false);
-        building.getTranslationController().setEnabled(false);
-        building.setWorldPosition(transformationVector);
-        building.setLocalScale(new Vector3(0.04f, 0.04f, 0.04f));
-        building.setLocalRotation(Quaternion.multiply(q1, q2));
-        //building.setLocalScale(new Vector3(0.03f, 0.03f, 0.03f));
-        building.setEnabled(false);
-        building.select();
-
-    }
 }
