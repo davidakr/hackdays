@@ -1,10 +1,17 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/planetInfoCard"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="6dp"
-    android:text="Hello this is so good"
-    android:textAlignment="center" />
+    android:background="@color/lhYellow">
+
+    <TextView
+        android:id="@+id/bubble_text"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="6dp"
+        android:text="Hello this is so good ello this is so go ello this is so go ello this is so go"
+        android:textAlignment="center" />
+
+</LinearLayout>
+
