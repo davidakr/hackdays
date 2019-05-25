@@ -3,15 +3,17 @@ package com.google.ar.sceneform.samples.hellosceneform;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 
 public class SightModel {
+    private final String[] hardcodedQs;
     private String title;
     private String info;
     private ModelRenderable renderable;
     private int res;
 
-    public SightModel(String title, String info, int res) {
+    public SightModel(String title, String info, int res, String[] hardcodedQs) {
         this.title = title;
         this.info = info;
         this.res = res;
+        this.hardcodedQs = hardcodedQs;
     }
 
     public String getTitle() {
@@ -44,5 +46,9 @@ public class SightModel {
 
     public void setRes(int res) {
         this.res = res;
+    }
+
+    public String[] getHardcodedQs() {
+        return hardcodedQs;
     }
 }
