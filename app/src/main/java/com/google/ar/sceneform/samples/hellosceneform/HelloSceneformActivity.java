@@ -153,25 +153,27 @@ public class HelloSceneformActivity extends AppCompatActivity {
     }
 
     public void nextModel() {
-        if (!anchorIsSet || currentModel >= loadedNodes.size() - 1) {
+        if (!anchorIsSet) {
             return;
         }
-        currentModel++;
+        int oldModel = currentModel;
+        currentModel = (currentModel + 1) % models.size();
 
-        loadedNodes.get(currentModel - 1).setEnabled(false);
-        indicators.get(currentModel - 1).setVisibility(View.GONE);
+        loadedNodes.get(oldModel).setEnabled(false);
+        indicators.get(oldModel).setVisibility(View.GONE);
         loadedNodes.get(currentModel).setEnabled(true);
         indicators.get(currentModel).setVisibility(View.VISIBLE);
     }
 
     public void prevModel() {
-        if (!anchorIsSet ||  currentModel == 0) {
+        if (!anchorIsSet) {
             return;
         }
-        currentModel--;
+        int oldModel = currentModel;
+        currentModel = (currentModel - 1 + models.size()) % models.size();
 
-        loadedNodes.get(currentModel + 1).setEnabled(false);
-        indicators.get(currentModel + 1).setVisibility(View.GONE);
+        loadedNodes.get(oldModel).setEnabled(false);
+        indicators.get(oldModel).setVisibility(View.GONE);
         loadedNodes.get(currentModel).setEnabled(true);
         indicators.get(currentModel).setVisibility(View.VISIBLE);
     }
