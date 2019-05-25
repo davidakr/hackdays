@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -35,6 +36,8 @@ import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.HitTestResult;
+import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
@@ -53,6 +56,7 @@ public class HelloSceneformActivity extends AppCompatActivity {
     private MyArFragment arFragment;
     private boolean anchorIsSet = false;
     private AnchorNode anchorNode;
+    private View toForumSpecial;
 
     private List<SightModel> models;
     {
@@ -91,9 +95,9 @@ public class HelloSceneformActivity extends AppCompatActivity {
                         Anchor anchor = hitResult.createAnchor();
                         anchorNode = new AnchorNode(anchor);
                         anchorNode.setParent(arFragment.getArSceneView().getScene());
-                        anchorIsSet = true;
                         arFragment.getArSceneView().getPlaneRenderer().setEnabled(false);
-
+                        toForumSpecial.setVisibility(View.VISIBLE);
+                        anchorIsSet = true;
                     }
                     if (anchorIsSet) {
                         // create all nodes
@@ -106,6 +110,17 @@ public class HelloSceneformActivity extends AppCompatActivity {
                         anchorIsSet = true;
                     }
                 });
+
+        toForumSpecial = findViewById(R.id.view);
+        toForumSpecial.setVisibility(View.GONE);
+        toForumSpecial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(anchorIsSet) {
+                    startActivity(new Intent(HelloSceneformActivity.this, ForumActivity.class));
+                }
+            }
+        });
     }
 
     private void loadModel(SightModel model) {

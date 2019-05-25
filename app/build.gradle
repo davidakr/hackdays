@@ -56,11 +56,6 @@ dependencies {
 
 apply plugin: 'com.google.ar.sceneform.plugin'
 
-sceneform.asset('sampledata/models/andy.obj',
-        'default',
-        'sampledata/models/andy.sfa',
-        'src/main/res/raw/andy')
-
 
 
 sceneform.asset('sampledata/models/newYork/13939_New_York_City_Freedom_tower_v1_l3.obj',
