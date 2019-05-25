@@ -112,7 +112,7 @@ public class HelloSceneformActivity extends AppCompatActivity {
         findViewById(R.id.to_forum).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(new Intent(HelloSceneformActivity.this, ForumActivity.class));
+                Intent intent = new Intent(new Intent(HelloSceneformActivity.this, ForumOverviewActivity.class));
                 startActivity(intent);
             }
         });
@@ -253,7 +253,7 @@ public class HelloSceneformActivity extends AppCompatActivity {
         node.setOnTapListener(new Node.OnTapListener() {
             @Override
             public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
-                Intent intent = new Intent(new Intent(HelloSceneformActivity.this, ForumActivity.class));
+                Intent intent = new Intent(new Intent(HelloSceneformActivity.this, ForumOverviewActivity.class));
                 intent.putExtra("MODEL_ID", model.getRes());
                 startActivity(intent);
             }

@@ -16,10 +16,9 @@
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/ForumStyle"
+        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="false"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ForumActivity"></activity>
         <!--
          This tag indicates that this application requires ARCore. This results in the
             application only being visible in the Google Play Store on devices that support
@@ -28,6 +27,11 @@
         <meta-data
             android:name="com.google.ar.core"
             android:value="required" />
+
+        <activity android:name=".ForumOverviewActivity">
+        </activity>
+        <activity android:name=".DetailedView">
+        </activity>
 
         <activity
             android:name=".HelloSceneformActivity"
