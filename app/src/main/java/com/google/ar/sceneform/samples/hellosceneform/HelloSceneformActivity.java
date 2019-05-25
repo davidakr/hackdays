@@ -28,9 +28,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.TranslateAnimation;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,9 +62,9 @@ public class HelloSceneformActivity extends AppCompatActivity {
 
     {
         models = new ArrayList<>();
-        models.add(new SightModel("Empire State Building", "TODO", R.raw.empire));
-        models.add(new SightModel("One World Trade Center", "TODO", R.raw.building));
-        models.add(new SightModel("Statue of Liberty", "TODO", R.raw.libertstatue));
+        models.add(new SightModel("Empire State Building", "TODO", R.raw.empire, new String[]{"Is it worth it?", "When does it open?", "It's free for kids!", "Closes at 6pm", "Does it have reduced admission?"}));
+        models.add(new SightModel("One World Trade Center", "TODO", R.raw.building, new String[]{"Is it worth it?", "When does it open?", "It's free for kids!", "Closes at 6pm", "Does it have reduced admission?"}));
+        models.add(new SightModel("Statue of Liberty", "TODO", R.raw.libertstatue, new String[]{"Is it worth it?", "When does it open?", "It's free for kids!", "Closes at 6pm", "Does it have reduced admission?"}));
     }
 
     List<TransformableNode> loadedNodes = new ArrayList<>();
@@ -135,8 +132,7 @@ public class HelloSceneformActivity extends AppCompatActivity {
         indicators.add(findViewById(R.id.circle2));
         indicators.add(findViewById(R.id.circle3));
 
-        for (String s : new String[]{"How to get in past 6pm?", "How much is it?", "Is it family-friendly?",
-                "I like gandolf cause he", "Is a chill wizard", "P=NP", "Benajs djgjdds", "sdgagsjkagag", "dsgjkhaskghaskjgashgkjga"}) {
+        for (String s : new String[]{"Is it worth it?", "When does it open?", "It's free for kids!", "Closes at 6pm", "Does it have reduced admission?", "Can I bring my dog?", "Totally worth it, was there last year", "Great view!", "Amazing!"}) {
             LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final View view = inflater.inflate(R.layout.speech_bubble, null);
             ((TextView) view.findViewById(R.id.bubble_text)).setText(s);
