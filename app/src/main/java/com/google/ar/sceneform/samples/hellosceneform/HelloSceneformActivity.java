@@ -67,6 +67,8 @@ public class HelloSceneformActivity extends AppCompatActivity {
 
     List<TransformableNode> loadedNodes = new ArrayList<>();
 
+    private List<View> indicators;
+
     int currentModel = 0;
 
     @Override
@@ -103,7 +105,8 @@ public class HelloSceneformActivity extends AppCompatActivity {
                             createNode(model);
                         }
 
-                        loadedNodes.get(0).setEnabled(true);
+                        loadedNodes.get(currentModel).setEnabled(true);
+                        indicators.get(currentModel).setVisibility(View.VISIBLE);
 
                         anchorIsSet = true;
                     }
@@ -116,6 +119,11 @@ public class HelloSceneformActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        indicators = new ArrayList<>();
+        indicators.add(findViewById(R.id.circle1));
+        indicators.add(findViewById(R.id.circle2));
+        indicators.add(findViewById(R.id.circle3));
     }
 
     @Override
@@ -151,7 +159,9 @@ public class HelloSceneformActivity extends AppCompatActivity {
         currentModel++;
 
         loadedNodes.get(currentModel - 1).setEnabled(false);
+        indicators.get(currentModel - 1).setVisibility(View.GONE);
         loadedNodes.get(currentModel).setEnabled(true);
+        indicators.get(currentModel).setVisibility(View.VISIBLE);
     }
 
     public void prevModel() {
@@ -161,7 +171,9 @@ public class HelloSceneformActivity extends AppCompatActivity {
         currentModel--;
 
         loadedNodes.get(currentModel + 1).setEnabled(false);
+        indicators.get(currentModel + 1).setVisibility(View.GONE);
         loadedNodes.get(currentModel).setEnabled(true);
+        indicators.get(currentModel).setVisibility(View.VISIBLE);
     }
 
 

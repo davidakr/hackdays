@@ -21,18 +21,88 @@
     android:clickable="true"
     tools:context=".HelloSceneformActivity">
 
-  <fragment android:name="com.google.ar.sceneform.samples.hellosceneform.MyArFragment"
-      android:id="@+id/ux_fragment"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+    <fragment
+        android:id="@+id/ux_fragment"
+        android:name="com.google.ar.sceneform.samples.hellosceneform.MyArFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-  <ImageView
-      android:id="@+id/to_forum"
-      android:layout_width="40dp"
-      android:layout_height="40dp"
-      android:layout_alignParentRight="true"
-      android:layout_centerVertical="true"
-      android:alpha="0.7"
-      android:src="@mipmap/ic_right" />
+    <ImageView
+        android:id="@+id/to_forum"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:alpha="0.7"
+        android:src="@mipmap/ic_right" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:gravity="center">
+
+        <FrameLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:id="@+id/circle1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/circle"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:src="@drawable/empire_state_round" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:id="@+id/circle2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/circle"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:src="@drawable/one_world_trade_round" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:id="@+id/circle3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/circle"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:src="@drawable/statue_liberty_round" />
+
+        </FrameLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
