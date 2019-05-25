@@ -65,9 +65,9 @@ public class HelloSceneformActivity extends AppCompatActivity {
         models.add(new SightModel("Statue of Liberty", "TODO", R.raw.libertstatue));
     }
 
-    private List<TransformableNode> loadedNodes = new ArrayList<>();
+    List<TransformableNode> loadedNodes = new ArrayList<>();
 
-    private int currentModel = 0;
+    int currentModel = 0;
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -110,6 +110,17 @@ public class HelloSceneformActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (anchorIsSet) {
+            // don't show pan animation again when model has already been placed
+            arFragment.getPlaneDiscoveryController().hide();
+            arFragment.getPlaneDiscoveryController().setInstructionView(null);
+        }
+    }
+
     private void loadModel(SightModel model) {
         ModelRenderable.builder()
                 .setSource(this, model.getRes())
@@ -126,23 +137,23 @@ public class HelloSceneformActivity extends AppCompatActivity {
     }
 
     public void nextModel() {
-        if (currentModel >= loadedNodes.size() - 1) {
+        if (!anchorIsSet || currentModel >= loadedNodes.size() - 1) {
             return;
         }
-        loadedNodes.get(currentModel).setEnabled(false);
-        loadedNodes.get(currentModel + 1).setEnabled(true);
-
         currentModel++;
+
+        loadedNodes.get(currentModel - 1).setEnabled(false);
+        loadedNodes.get(currentModel).setEnabled(true);
     }
 
     public void prevModel() {
-        if (currentModel == 0) {
+        if (!anchorIsSet ||  currentModel == 0) {
             return;
         }
-        loadedNodes.get(currentModel).setEnabled(false);
-        loadedNodes.get(currentModel - 1).setEnabled(true);
-
         currentModel--;
+
+        loadedNodes.get(currentModel + 1).setEnabled(false);
+        loadedNodes.get(currentModel).setEnabled(true);
     }
 
 
@@ -185,7 +196,7 @@ public class HelloSceneformActivity extends AppCompatActivity {
 
         // custom offsets for each model
         if (model.getRes() == R.raw.libertstatue) {
-            node = new TransformableNode(arFragment.getTransformationSystem());
+            node = new MyTransformableNode(arFragment.getTransformationSystem(), this);
             node.setParent(anchorNode);
             node.setRenderable(model.getRenderable());
             node.getRotationController().setEnabled(false);
@@ -200,7 +211,7 @@ public class HelloSceneformActivity extends AppCompatActivity {
             Vector3 currentLocation = anchorNode.getWorldPosition();
             Vector3 transformationVector = new Vector3(currentLocation.x - 0.0f, currentLocation.y + 0.12f, currentLocation.z - 0.0f);
 
-            node = new TransformableNode(arFragment.getTransformationSystem());
+            node = new MyTransformableNode(arFragment.getTransformationSystem(), this);
             node.setParent(anchorNode);
             node.setRenderable(model.getRenderable());
             node.getRotationController().setEnabled(false);
@@ -213,7 +224,7 @@ public class HelloSceneformActivity extends AppCompatActivity {
             node.select();
         } else {
             // TODO one world trade center scale
-            node = new TransformableNode(arFragment.getTransformationSystem());
+            node = new MyTransformableNode(arFragment.getTransformationSystem(), this);
             node.setParent(anchorNode);
             node.setRenderable(model.getRenderable());
             node.getRotationController().setEnabled(false);
