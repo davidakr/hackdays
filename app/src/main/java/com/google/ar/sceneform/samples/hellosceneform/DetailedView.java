@@ -6,6 +6,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,6 +37,16 @@ public class DetailedView extends AppCompatActivity
         textViewVote.setText(post.getVote());
         String author_text = "Posted by " + post.getAuthor();
         textViewAuthor.setText(author_text);
+
+        ArrayList<String> mobileArray = new ArrayList<String>();  // here we want to have the comments
+        mobileArray.add("LOL1");
+        mobileArray.add("LOL");
+
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+                R.layout.activity_listview, mobileArray);
+
+        ListView listView = (ListView) findViewById(R.id.mobile_list);
+        listView.setAdapter(adapter);
     }
 
     public void upVote(View view)
