@@ -2,11 +2,11 @@
 
 # LufthanSTARS
 
-LufthanSTARS is an Android AR application that lets passengers explore their place of destination. It shows prominent sights of the destination place and allows users to add comments.
+LufthanSTARS is an Android AR application that lets passengers explore their place of destination and communicate with fellow passengers. It shows prominent sights of the destination place and allows users to add comments.
 
-The App enganges passengers to share their knowledge and connect with fellow passengers by rewarding LufthanSTARS for answering questions in our forums.
+The App enganges passengers to share their knowledge and connect with others. Beside the comments displayed next to the individual sights, users can ask and answer questions in the forums. In this way, users connect to others, may find travel buddies and get answers to questions about their destination place.
 
-In this way, users connect to others, may find travel buddies and get answers to questions about their destination place.
+The App rewards active discussions with LufthanSTARS, an in-app currency that can be traded for extra miles.
 
 We developed the application during Hackdays Rhein-Main 2019 and were not only awarded as the best team within Lufthansa's Challenge, but also won the overall best pitch.
 
