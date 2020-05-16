@@ -12,4 +12,4 @@ We developed the application during Hackdays Rhein-Main 2019 and were not only a
 
 The App is implemented with Android and ARCore and is connecting to a Flask backend that accesses a MongoDB. Also, the application can be operated in planes' internal network and is not limited to an internet connection.
 
-The shown demo was recorded in a Lufthansa flight to New York and shows the passenger the city's must-sees.
+The shown demo was recorded in a Lufthansa flight to New York City and shows the passenger the city's must-sees.
