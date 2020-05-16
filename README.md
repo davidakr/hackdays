@@ -2,7 +2,7 @@
 
 # LufthanSTARS
 
-LufthanSTARS is an Android AR application that lets passengers explore their place of destination and communicate with fellow passengers. It shows prominent sights of the destination place and allows users to add comments.
+LufthanSTARS is an Android AR application that lets passengers explore their place of destination and communicate with fellow passengers. It shows prominent sights of the destination place in AR and allows users to add comments.
 
 The App engages passengers to share their knowledge and connect with others. Besides the comments displayed next to the individual sights, users can ask and answer questions in the forums. In this way, users connect to others, may find travel buddies, and get answers to questions about their destination place.
 
